@@ -16,4 +16,6 @@ public interface ProductService {
     ProductDTOResponse deleteProductById(int id);
 
     ProductDTOResponse updatePRoduct(int id, ProductUpdateDTORequest productUpdateDTORequest);
+
+    List<ProductDTOResponse> searchProduct(String keyword);
 }

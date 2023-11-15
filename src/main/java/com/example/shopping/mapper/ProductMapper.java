@@ -9,6 +9,8 @@ import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueMappingStrategy;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @Mapper(componentModel = "spring",nullValueMappingStrategy =  NullValueMappingStrategy.RETURN_DEFAULT)
 public interface  ProductMapper {

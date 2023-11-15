@@ -29,7 +29,7 @@ public class Product {
     @Column(name = "sku")
     String sku;
 
-    @Column(name = "imageURL")
+    @Column(name = "image_URL")
     String imageURL;
 
     @Column(name = "description")

@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
@@ -26,19 +27,16 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductDTOResponse getProductById(int id) {
-        Product product = productRepository.findById(id).orElseThrow(() -> ShopException.notFoundException("Product does not exist hi"));
+        Product product = productRepository.findById(id).orElseThrow(() -> ShopException.notFoundException("Product does not exist"));
         return productMapper.toProductDTOResponse(product);
     }
 
     @Override
     public List<ProductDTOResponse> getProductList() {
         List<Product> productList = productRepository.findAll();
-        List<ProductDTOResponse> productDTOResponseList = new ArrayList<>();
-        for (Product product :
-                productList) {
-            productDTOResponseList.add(productMapper.toProductDTOResponse(product));
-        }
-        return productDTOResponseList;
+        return productList.stream()
+                .map(productMapper::toProductDTOResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -65,6 +63,14 @@ public class ProductServiceImpl implements ProductService {
         product.setUpdateDate(new Date());
         productRepository.save(product);
         return productMapper.toProductDTOResponse(product);
+    }
+
+    @Override
+    public List<ProductDTOResponse> searchProduct(String keyword) {
+        List<Product> productList = productRepository.findByNameContainingIgnoreCase(keyword);
+        return productList.stream()
+                .map(productMapper::toProductDTOResponse)
+                .collect(Collectors.toList());
     }
 
 }
