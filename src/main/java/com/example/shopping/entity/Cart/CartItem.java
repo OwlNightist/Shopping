@@ -32,4 +32,7 @@ public class CartItem {
     @Column(name = "quantity")
     int quantity;
 
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "cart_detail_id")
+    CartDetail cartDetail;
 }
