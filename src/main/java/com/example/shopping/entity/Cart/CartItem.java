@@ -1,5 +1,6 @@
 package com.example.shopping.entity.Cart;
 
+import com.example.shopping.entity.Product.Product;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,11 +16,20 @@ import java.time.Instant;
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class Cart {
+public class CartItem {
     @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
+
     @CreatedDate
     Instant createdDate;
+
+    @OneToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "product_id")
+    Product product;
+
+    @Column(name = "quantity")
+    int quantity;
+
 }
