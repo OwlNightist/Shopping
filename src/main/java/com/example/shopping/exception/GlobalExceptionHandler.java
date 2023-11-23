@@ -14,12 +14,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(exception.getError(), exception.getStatus());
     }
 
-    @ExceptionHandler(Exception.class)
-    public final ResponseEntity<CustomError> handleAccessDeniedException() {
-        CustomError error = CustomError.builder()
-                .code("403")
-                .message("Ahihi bi chan roi")
-                .build();
-        return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
-    }
+//    @ExceptionHandler(Exception.class)
+//    public final ResponseEntity<CustomError> handleAccessDeniedException() {
+//        CustomError error = CustomError.builder()
+//                .code("403")
+//                .message("Ahihi bi chan roi")
+//                .build();
+//        return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
+//    }
 }

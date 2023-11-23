@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService {
     public ProductDTOResponse deleteProductById(int id) {
         Product product = productRepository.findById(id).orElseThrow(() -> ShopException.notFoundException("Product does not exist"));
         product.setDelete(true);
-        product = productRepository.save(product);
+        productRepository.save(product);
         return productMapper.toProductDTOResponse(product);
     }
 

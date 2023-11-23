@@ -4,12 +4,11 @@ import com.example.shopping.entity.Product.Product;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.annotation.CreatedDate;
-
 import javax.persistence.*;
 import java.time.Instant;
 
 @Entity
-@Table(name = "tblCart")
+@Table(name = "tblCartItem")
 @Getter
 @Setter
 @Builder

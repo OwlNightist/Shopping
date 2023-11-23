@@ -5,6 +5,7 @@ import com.example.shopping.dto.ProductDTOResponse;
 import com.example.shopping.dto.ProductUpdateDTORequest;
 import com.example.shopping.entity.Product.Product;
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValueMappingStrategy;
 import org.springframework.stereotype.Component;
@@ -14,6 +15,7 @@ import java.util.Optional;
 @Component
 @Mapper(componentModel = "spring",nullValueMappingStrategy =  NullValueMappingStrategy.RETURN_DEFAULT)
 public interface  ProductMapper {
+
     ProductDTOResponse toProductDTOResponse(Product product);
 
     Product toProduct(ProductDTORequest productDTORequest);

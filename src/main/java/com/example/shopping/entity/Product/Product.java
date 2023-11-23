@@ -35,7 +35,7 @@ public class Product {
     @Column(name = "description")
     String description;
 
-    @Column(name = "quanlity")
+    @Column(name = "quantity")
     int quantity;
 
     @Column(name = "created_date")
@@ -45,7 +45,7 @@ public class Product {
     Date updateDate;
 
     @Column(name = "is_delete")
-    boolean isDelete;
+    boolean Delete;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "category_id")
