@@ -1,19 +1,17 @@
 package com.example.shopping.service.impl;
 
-import com.example.shopping.dto.ProductDTORequest;
-import com.example.shopping.dto.ProductDTOResponse;
-import com.example.shopping.dto.ProductUpdateDTORequest;
+import com.example.shopping.dto.*;
 import com.example.shopping.entity.Product.Product;
 import com.example.shopping.exception.ShopException;
 import com.example.shopping.mapper.ProductMapper;
 import com.example.shopping.repository.ProductRepository;
+import com.example.shopping.repository.criteria.ProductRepositoryCriteria;
 import com.example.shopping.service.ProductService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,6 +22,7 @@ import java.util.stream.Collectors;
 public class ProductServiceImpl implements ProductService {
     ProductRepository productRepository;
     ProductMapper productMapper;
+    ProductRepositoryCriteria productRepositoryCriteria;
 
     @Override
     public ProductDTOResponse getProductById(int id) {
@@ -57,20 +56,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public ProductDTOResponse updatePRoduct(int id, ProductUpdateDTORequest productUpdateDTORequest) {
+    public ProductDTOResponse updateProduct(int id, ProductUpdateDTORequest productUpdateDTORequest) {
         Product product = productRepository.findById(id).orElseThrow(() -> ShopException.notFoundException("Product does not exist"));
         product = productMapper.toProduct(productUpdateDTORequest, product);
         product.setUpdateDate(new Date());
         productRepository.save(product);
         return productMapper.toProductDTOResponse(product);
     }
-
     @Override
-    public List<ProductDTOResponse> searchProduct(String keyword) {
-        List<Product> productList = productRepository.findByNameContainingIgnoreCase(keyword);
-        return productList.stream()
-                .map(productMapper::toProductDTOResponse)
-                .collect(Collectors.toList());
+    public PagingDTOResponse searchProduct(ProductDTOFilter productDTOFilter) {
+        return productRepositoryCriteria.search(productDTOFilter);
     }
 
 }

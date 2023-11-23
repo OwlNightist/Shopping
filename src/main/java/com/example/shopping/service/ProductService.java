@@ -1,8 +1,6 @@
 package com.example.shopping.service;
 
-import com.example.shopping.dto.ProductDTORequest;
-import com.example.shopping.dto.ProductDTOResponse;
-import com.example.shopping.dto.ProductUpdateDTORequest;
+import com.example.shopping.dto.*;
 
 import java.util.List;
 
@@ -15,7 +13,7 @@ public interface ProductService {
 
     ProductDTOResponse deleteProductById(int id);
 
-    ProductDTOResponse updatePRoduct(int id, ProductUpdateDTORequest productUpdateDTORequest);
+    ProductDTOResponse updateProduct(int id, ProductUpdateDTORequest productUpdateDTORequest);
 
-    List<ProductDTOResponse> searchProduct(String keyword);
+    PagingDTOResponse searchProduct(ProductDTOFilter productDTOFilter);
 }

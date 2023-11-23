@@ -1,9 +1,6 @@
 package com.example.shopping.controller;
 
-import com.example.shopping.dto.ProductDTORequest;
-import com.example.shopping.dto.ProductDTOResponse;
-import com.example.shopping.dto.ProductUpdateDTORequest;
-import com.example.shopping.exception.ShopException;
+import com.example.shopping.dto.*;
 import com.example.shopping.service.ProductService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -48,17 +45,12 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductDTOResponse> updateProduct(@PathVariable int id, @RequestBody ProductUpdateDTORequest productUpdateDTORequest) {
-        ProductDTOResponse productDTOResponse = productService.updatePRoduct(id, productUpdateDTORequest);
+        ProductDTOResponse productDTOResponse = productService.updateProduct(id, productUpdateDTORequest);
         return new ResponseEntity<>(productDTOResponse, HttpStatus.OK);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<ProductDTOResponse>> searchProducts(@RequestParam String keyword) {
-        List<ProductDTOResponse> productDTOResponse = productService.searchProduct(keyword);
-        if(productDTOResponse.isEmpty()){
-            throw  ShopException.notFoundException("No products found with the keyword " + keyword);
-        }
-        return new ResponseEntity<>(productDTOResponse, HttpStatus.OK);
-
+    public PagingDTOResponse SearchProduct(@ModelAttribute ProductDTOFilter productDTOFilter){
+        return productService.searchProduct(productDTOFilter);
     }
 }
