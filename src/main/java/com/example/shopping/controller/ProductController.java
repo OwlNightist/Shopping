@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,12 +26,11 @@ public class ProductController {
     }
 
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<ProductDTOResponse>> getAllProducts() {
         List<ProductDTOResponse> productDTOResponse = productService.getProductList();
             return new ResponseEntity<>(productDTOResponse, HttpStatus.OK);
     }
-
     @PostMapping
     public ProductDTOResponse createProduct(@RequestBody ProductDTORequest productDTORequest) {
         return productService.createProduct(productDTORequest);
@@ -42,14 +42,13 @@ public class ProductController {
         return new ResponseEntity<>(productDTOResponse, HttpStatus.OK);
 
     }
-
     @PutMapping("/{id}")
     public ResponseEntity<ProductDTOResponse> updateProduct(@PathVariable int id, @RequestBody ProductUpdateDTORequest productUpdateDTORequest) {
         ProductDTOResponse productDTOResponse = productService.updateProduct(id, productUpdateDTORequest);
         return new ResponseEntity<>(productDTOResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/search")
+    @GetMapping()
     public PagingDTOResponse SearchProduct(@ModelAttribute ProductDTOFilter productDTOFilter){
         return productService.searchProduct(productDTOFilter);
     }

@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Component
-public class JwTokenUtil {
+public class JwtTokenUtil {
     @Value("${JWT_SCRET_KEY}")
     private String secret;
 
